@@ -1,0 +1,62 @@
+# The format of this file is documented in the dhcpd.leases(5) manual page.
+# This lease file was written by isc-dhcp-4.2.5
+
+lease 10.1.1.1 {
+  starts 1 2018/12/03 07:57:12;
+  ends 1 2018/12/03 09:24:59;
+  tstp 1 2018/12/03 09:24:59;
+  cltt 1 2018/12/03 07:57:12;
+  binding state free;
+  hardware ethernet 11:11:1a:1a:bb:bb;
+  uid "";
+}
+lease 10.1.1.2 {
+  starts 5 2018/12/07 07:44:47;
+  ends 5 2018/12/14 07:44:47;
+  tstp 5 2018/12/14 07:44:47;
+  cltt 5 2018/12/07 07:44:47;
+  binding state free;
+  hardware ethernet 22:22:2b:2b:bb:bb;
+  uid "";
+  set DynName = "dhcp-10-1-1-2";
+  set ClientIP = "10.1.1.2";
+  set ClientFQDN = "dhcp-10-1-1-2.example.local";
+}
+lease 10.1.1.3 {
+  starts 1 2018/12/24 11:59:49;
+  ends 1 2018/12/31 11:59:49;
+  tstp 1 2018/12/31 11:59:49;
+  cltt 1 2018/12/24 11:59:49;
+  binding state active;
+  next binding state free;
+  rewind binding state free;
+  hardware ethernet 33:33:3c:3c:cc:cc;
+  uid "";
+  set DynName = "dhcp-10-1-1-3";
+  set ClientIP = "10.1.1.3";
+  set ClientFQDN = "hostname1.example.local";
+  client-hostname "hostname1";
+  on expiry {
+    set ClientIP = 
+       binary-to-ascii (10, 8, ".", leased-address) ;
+    log (debug, 
+        concat ("Expired: IP: ", ClientIP));
+    execute ("/usr/local/bin/ddns.sh", "del", ClientIP, "");
+  }
+  on release {
+    set ClientIP = 
+       binary-to-ascii (10, 8, ".", leased-address) ;
+    log (debug, 
+        concat ("Release: IP: ", ClientIP));
+    execute ("/usr/local/bin/ddns.sh", "del", ClientIP, "");
+  }
+}
+lease 10.1.1.4 {
+  starts 6 2018/12/01 21:20:06;
+  ends 1 2018/12/03 09:27:59;
+  tstp 1 2018/12/03 09:27:59;
+  cltt 6 2018/12/01 21:20:06;
+  binding state free;
+  hardware ethernet 44:44:4d:4d:dd:dd;
+  uid "";
+}

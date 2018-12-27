@@ -1,0 +1,12 @@
+__pycache__
+.cache
+.pytest_cache
+/.vscode
+*.log
+*.pyc
+*.swp
+/*.conf
+/venv
+/dist
+*egg-info
+*.out
